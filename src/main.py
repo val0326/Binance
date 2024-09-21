@@ -17,8 +17,6 @@ app = FastAPI(
     debug=settings.DEBUG,
 )
 
-app.include_router(router, prefix=settings.API_PREFIX)
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,3 +25,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(router, prefix=settings.API_PREFIX)
+
+
+@app.get("/health")
+async def root():
+    return {"status": "OK"}

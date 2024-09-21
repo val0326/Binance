@@ -1,26 +1,7 @@
-from fastapi import FastAPI
 from sqlalchemy.orm import Session
 
-from database import SessionLocal
 
 from . import models, schemas
-
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-app = FastAPI()
-
-
-@app.get("/health")
-async def root():
-    return {"status": "OK"}
 
 
 def get_user(db: Session, user_id: int):
@@ -37,9 +18,7 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 def create_user(db: Session, user: schemas.UserCreate):
     fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(
-        email=user.email, hashed_password=fake_hashed_password
-    )
+    db_user = models.User(email=user.email, hashed_password=fake_hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
