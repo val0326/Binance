@@ -1,13 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app import models
-from app.users.routers import router
+
+from routers import router
 from config import settings
-from database import engine
-
-
-models.Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(
@@ -15,8 +11,6 @@ app = FastAPI(
     version=settings.VERSION,
     debug=settings.DEBUG,
 )
-
-app.include_router(router, prefix=settings.API_PREFIX)
 
 
 app.add_middleware(
@@ -26,3 +20,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(router, prefix=settings.API_PREFIX)
+
+
+@app.get("/health")
+async def root():
+    return {"status": "OK"}
