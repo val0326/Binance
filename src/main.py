@@ -25,5 +25,5 @@ app.include_router(router, prefix=settings.API_PREFIX)
 
 
 @app.get("/health")
-async def root():
+def root():
     return {"status": "OK"}
