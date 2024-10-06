@@ -12,7 +12,15 @@ fastapi = "^0.112.0"
 uvicorn = {extras = ["standard"], version = "^0.30.5"}
 pydantic-settings = "^2.4.0"
 sqlalchemy = "^2.0.32"
+<<<<<<< Updated upstream
 pytest = "^8.3.3"
+=======
+<<<<<<< Updated upstream
+=======
+pytest = "^8.3.3"
+requests = "^2.32.3"
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 
 [build-system]
