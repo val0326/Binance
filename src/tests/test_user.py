@@ -30,6 +30,5 @@ def test_get_list_of_users():
 
 
 def test_get_object(obj_id):
-    # print(obj_id)
     response = requests.get(f"http://127.0.0.1:8000/v1/users/{obj_id}").json()
     assert response["id"] == obj_id
