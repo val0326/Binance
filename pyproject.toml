@@ -12,6 +12,7 @@ fastapi = "^0.112.0"
 uvicorn = {extras = ["standard"], version = "^0.30.5"}
 pydantic-settings = "^2.4.0"
 sqlalchemy = "^2.0.32"
+alembic = "^1.13.3"
 
 
 [tool.poetry.group.dev.dependencies]
