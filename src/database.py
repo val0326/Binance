@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -7,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 load_dotenv()
 
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./sqlite3.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./db.sqlite3"
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
 engine = create_engine(
@@ -16,6 +17,13 @@ engine = create_engine(
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+session = SessionLocal()
+
 Base = declarative_base()
 
-Base.metadata.create_all(engine)
+
+metadata = Base.metadata
+
+
+def create_db_and_tables():
+    metadata.create_all(engine)
