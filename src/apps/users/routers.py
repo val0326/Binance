@@ -2,9 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from . import schemas, services
 
-# import sys
-
-# sys.path.append("..")
 
 import dependencies
 
