@@ -1,24 +1,21 @@
-.PHONY: test init_db migrate generate_migration default
-.DEFAULT_GOAL := default
-export PYTHONPATH=.
+# Backend REGION START
+start_dev:
+	poetry run uvicorn  src.main:app --reload
 
-# This is for running inside PyCharm
-export PATH:=${PWD}/venv/bin:${PATH}
-
-
-default: migrate init_db
-
-generate_migration:
-@ alembic revision --autogenerate
+migrations:
+	alembic revision --autogenerate
 
 migrate:
-@ alembic upgrade head
+	poetry run alembic upgrade head
+# Backend REGION END
 
+# Tests
 test:
-@ pytest -v tests
+	pytest -v tests
 
-init_db:
-@ python fastapp/scripts/initialise.py ## src/database.py??
+# Linters
+format:
+	poetry run black src && poetry run isort src
+# Linters REGION END
 
-
-vim:ft=make
+.PHONY: start_dev migrations migrate sort test
